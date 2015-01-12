@@ -13,7 +13,7 @@
 
 
             <div class="game-header">
-                <div class="nivel-atual">1-10</div>
+                <div class="nivel-atual">{{game.currentLevel}}-{{game.currentQuestion}}</div>
                 <div class="nome-nivel"> Nível: Diretor</div>
 
                 <!-- =================================================== -->
@@ -33,15 +33,15 @@
             <!-- =================================================== -->
             <!-- respostas -->
             <!-- =================================================== -->
-            <div class="resposta">
+            <div class="resposta" id="resposta-1">
                 <div class="resposta-txt">
-                    <div class="cell">{{question.option1}}</div>
+                    <div class="cell">{{question.answers.0.text}}</div>
                 </div>
             </div><!-- resposta -->
 
-            <div class="resposta">
+            <div class="resposta" id="resposta-2">
                 <div class="resposta-txt">
-                    <div class="cell">{{question.option2}}</div>
+                    <div class="cell">{{question.answers.1.text}}</div>
                 </div>
             </div><!-- resposta -->
 
@@ -51,11 +51,11 @@
             <!-- e dentro de resposta-txt adicione <div class="icone-certo"></div> -->
             <!-- que é o ícone correspondente-->
             <!-- =================================================== -->
-            <div class="resposta resposta-certa">
+            <div class="resposta resposta-certa" id="resposta-3">
                 <div class="resposta-txt">
                     <div class="icone-certo"></div>
                     <div class="cell">
-                        Não quero responder Não quero responder Não quero responderNão quero responder
+                        {{question.answers.2.text}}
                     </div>
                 </div>
             </div><!-- resposta -->
@@ -66,10 +66,10 @@
             <!-- e dentro de resposta-txt adicione <div class="icone-errado"></div> -->
             <!-- que é o ícone correspondente-->
             <!-- =================================================== -->
-            <div class="resposta resposta-errada">
+            <div class="resposta resposta-errada" id="resposta-4">
                 <div class="resposta-txt">
                     <div class="icone-errado"></div>
-                    <div class="cell">Não quero responder</div>
+                    <div class="cell">{{question.answers.3.text}}</div>
                 </div>
             </div><!-- resposta -->
 

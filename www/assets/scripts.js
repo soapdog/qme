@@ -126,22 +126,67 @@ function displayCurrentQuestion() {
 	var source = $("#question-display").html();
 	var template = Handlebars.compile(source);
 	var html;
+	var answers = [];
+	var currentFilm = gameState.rounds[gameState.game.currentLevel][gameState.game.currentQuestion];
 
 	var selectedQuestionKey = _.shuffle(["dica_curiosidade", "dica_frase", "dica_imagem"])[1];
 
+	function wrongAnswer() {
+		console.log("Wrong!");
+	}
+
+	function correctAnswer() {
+		console.log("Correct!");
+	}
+
+
 	gameState.question ={
-		question: gameState.rounds[gameState.game.currentLevel][gameState.game.currentQuestion][selectedQuestionKey],
-		option1: "primeira resposta",
-		option2: "segunda resposta"
+		question: currentFilm[selectedQuestionKey]
 	};
 
 	if (selectedQuestionKey == "dica_imagem") {
 		gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
 	}
 
+	answers.push({
+		text: currentFilm.nome_portugues,
+		correct: true
+	});
+
+	for(var i = 0; i <= 2; i++) {
+
+		var x = _.random(0, gameState.quizData.length);
+
+		answers.push({
+			correct: false,
+			text: gameState.quizData[x].nome_portugues
+		});
+	}
+
+	answers = _.shuffle(answers);
+
+	gameState.question.answers = answers;
+
+
 	html = template(gameState);
 
 	$("#question-container").html(html);
+
+	// bind answer options
+
+	for(var j = 0; j <= 3; j++) {
+		var key = "#resposta-" + (j+1);
+
+		if (answers[j].correct) {
+			// resposta certa
+			$(key).on("click", correctAnswer);
+
+		} else {
+			// resposta errada
+			$(key).on("click", wrongAnswer);
+
+		}
+	}
 
 	$('body').addClass('game-active');
 	bindResposta()
