@@ -8,6 +8,11 @@ var gameState = {
     game: {
         currentLevel: 0,
         currentQuestion: 0
+    },
+    round: {
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        powerUps: 0
     }
 };
 
@@ -15,6 +20,7 @@ function initialize() {
     bindMenu();
     bindStartGameButton();
     initializeGameRounds();
+    displayNextQuesiton();
 }
 
 

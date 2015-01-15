@@ -8,12 +8,26 @@
     <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
     <title>Que filme é esse?</title>
 
+    <script type="text/x-handlebars-template" id="answer-wrong">
+        <div class="resposta-txt">
+            <div class="icone-errado"></div>
+            <div class="cell">{{text}}</div>
+        </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="answer-correct">
+        <div class="resposta-txt">
+            <div class="icone-certo"></div>
+            <div class="cell">{{text}}</div>
+        </div>
+    </script>
+
     <script type="text/x-handlebars-template" id="question-display">
         <div class="content-scroll" style="bottom: 50px">
 
 
             <div class="game-header">
-                <div class="nivel-atual">{{game.currentLevel}}-{{game.currentQuestion}}</div>
+                <div class="nivel-atual">{{plusone game.currentLevel}}-{{plusone game.currentQuestion}}</div>
                 <div class="nome-nivel"> Nível: Diretor</div>
 
                 <!-- =================================================== -->
@@ -33,13 +47,13 @@
             <!-- =================================================== -->
             <!-- respostas -->
             <!-- =================================================== -->
-            <div class="resposta" id="resposta-1">
+            <div class="resposta" id="resposta-1" data-answer="{{question.answers.0.text}}">
                 <div class="resposta-txt">
                     <div class="cell">{{question.answers.0.text}}</div>
                 </div>
             </div><!-- resposta -->
 
-            <div class="resposta" id="resposta-2">
+            <div class="resposta" id="resposta-2" data-answer="{{question.answers.1.text}}">
                 <div class="resposta-txt">
                     <div class="cell">{{question.answers.1.text}}</div>
                 </div>
@@ -51,9 +65,8 @@
             <!-- e dentro de resposta-txt adicione <div class="icone-certo"></div> -->
             <!-- que é o ícone correspondente-->
             <!-- =================================================== -->
-            <div class="resposta resposta-certa" id="resposta-3">
+            <div class="resposta" id="resposta-3" data-answer="{{question.answers.2.text}}">
                 <div class="resposta-txt">
-                    <div class="icone-certo"></div>
                     <div class="cell">
                         {{question.answers.2.text}}
                     </div>
@@ -66,9 +79,8 @@
             <!-- e dentro de resposta-txt adicione <div class="icone-errado"></div> -->
             <!-- que é o ícone correspondente-->
             <!-- =================================================== -->
-            <div class="resposta resposta-errada" id="resposta-4">
+            <div class="resposta" id="resposta-4" data-answer="{{question.answers.3.text}}">
                 <div class="resposta-txt">
-                    <div class="icone-errado"></div>
                     <div class="cell">{{question.answers.3.text}}</div>
                 </div>
             </div><!-- resposta -->
@@ -587,7 +599,7 @@
         <div class="game-border"></div>
         <div class="parabens">PARABÉNS</div>
         <div class="moedas"></div>
-        <div class="acertos">Você acertou 7/70</div>
+        <div class="acertos">Você acertou <span id="correct-answers-display">7</span>/10</div>
         <div class="txt-proximo-nivel">Você passou para o próximo nível. Avance para continuar o desafio.</div>
         <div class="total-pontos">1500</div>
 
