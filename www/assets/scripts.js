@@ -96,9 +96,9 @@ function bindResposta(){
 	})
 }
 function bindFinal(){
-	$('.game-actions').off().on("click", function(){
-		$('body').addClass('final-active');
-	});
+	//$('.game-actions').off().on("click", function(){
+	//	$('body').addClass('final-active');
+	//});
 }
 function bindRemoveFinal(){
 	$('.final-buttons').off().on("click", function(){
@@ -226,11 +226,40 @@ function displayFinalScreen() {
 
 }
 
+function powerUpSkip() {
+	if (gameState.round.availablePowerUps.skip > 0) {
+		console.log("Using power up: skip");
+		gameState.round.correctAnswers++;
+		gameState.round.availablePowerUps.skip = 0;
+		displayNextQuesiton();
+	} else {
+		console.log("Can't use power up.");
+	}
+}
+
+function powerUpBomb() {
+	if (gameState.round.availablePowerUps.bomb > 0) {
+		console.log("Using power up: bomb");
+		gameState.round.availablePowerUps.bomb = 0;
+
+		$("[data-bomb]").addClass("resposta-errada");
+
+
+	} else {
+		console.log("Can't use power up.");
+	}
+}
+
 function initializeLevel(level) {
 	gameState.game.currentQuestion = 0;
 	gameState.round.correctAnswers = 0;
 	gameState.round.wrongAnswers = 0;
 	gameState.round.powerUps = 0;
+	gameState.round.availablePowerUps = {
+		tip: 1,
+		bomb: 1,
+		skip: 1
+	};
 	gameState.game.currentLevel = level;
 }
 
@@ -378,6 +407,8 @@ function displayCurrentQuestion() {
 
 	// bind answer options
 
+	var bombedQuestions = 2;
+
 	for(var j = 0; j <= 3; j++) {
 		var key = "#resposta-" + (j+1);
 		var el = $(key);
@@ -390,8 +421,18 @@ function displayCurrentQuestion() {
 			// resposta errada
 			el.off().on("click", wrongAnswer);
 
+			if (bombedQuestions > 0) {
+				el.attr("data-bomb", true);
+				bombedQuestions--;
+			}
+
 		}
 	}
+
+	// bind PowerUps
+	$(".game-actions.pular").off().on("click", powerUpSkip);
+	$(".game-actions.bomba").off().on("click", powerUpBomb);
+
 
 	// Timer handling
 	gameState.timer.start = new Date().getTime();
