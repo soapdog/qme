@@ -28,3 +28,5 @@ function initialize() {
 loadQuizData(function() {
     initialize(); // boot!
 });
+
+console.log("init lodaded");

@@ -140,7 +140,11 @@ function loadQuizData(callback) {
 		gameState.player.highScore = highScore;
 	}
 
-	$.getJSON("/assets/data/filmes.json", function(data) {
+	console.log("trying to load JSON...");
+
+	var path = window.location.href.replace('index.html', '');
+
+	$.getJSON(path + "assets/data/filmes.json", function(data) {
 		gameState.quizData = data;
 		callback();
 	});
@@ -258,8 +262,10 @@ function powerUpTip() {
 		var tip = gameState.question.film[selectedQuestionKey];
 
 		if (selectedQuestionKey == "dica_imagem") {
+			var path = window.location.href.replace('index.html', '').replace("#","");
+
 			//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
-			tip = "<img style='max-width: 100%;' src='/assets/img/" +tip + "'/>"
+			tip = "<img style='max-width: 100%;' src='" + path + "assets/img/" +tip + "'/>"
 
 		}
 
@@ -300,6 +306,10 @@ function initializeLevel(level) {
 		skip: 1
 	};
 	gameState.game.currentLevel = level;
+
+	if (level == 0) {
+		gameState.game.score = 0;
+	}
 }
 
 function calculateScore() {
@@ -329,7 +339,7 @@ function calculateScore() {
 		score = score * 1.1;
 	}
 
-	return score;
+	return Math.round(score,0);
 }
 
 function updateTimer() {
@@ -409,10 +419,15 @@ function displayCurrentQuestion() {
 	gameState.question.question =  currentFilm[selectedQuestionKey];
 	gameState.question.film = currentFilm;
 
+	var path = window.location.href.replace('index.html', '').replace("#","");
+
+
 	if (selectedQuestionKey == "dica_imagem") {
 		//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
-		gameState.question.question = "<img style='max-width: 100%;' src='/assets/img/" +gameState.question.question + "'/>"
 
+		gameState.question.question = "<img style='max-width: 100%;' src='" + path + "assets/img/" +gameState.question.question + "'/>"
+
+		console.log("path:" + 	gameState.question.question);
 	}
 
 	answers.push({
