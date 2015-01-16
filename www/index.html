@@ -8,6 +8,13 @@
     <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
     <title>Que filme é esse?</title>
 
+    <script type="text/x-handlebars-template" id="links-for-telecine-play">
+        <div class="telecine-box-header">Assita esses filmes no telecine play</div>
+        {{#each links}}
+        <a href="{{link_play}}" target="_blank" class="telecine-box-filme">{{nome_portugues}}</a>
+        {{/each}}
+    </script>
+
     <script type="text/x-handlebars-template" id="answer-wrong">
         <div class="resposta-txt">
             <div class="icone-errado"></div>
@@ -415,7 +422,7 @@
     <a href="#badge" class="item-menu icon-badges">Badges conquistados</a>
     <a href="#ranking" class="item-menu icon-ranking">Ranking</a>
     <a href="#como-jogar" class="item-menu icon-como-jogar">Como jogar</a>
-    <a href="#" class="item-menu icon-configuracoes">Configurações</a>
+    <!-- not used: <a href="#" class="item-menu icon-configuracoes">Configurações</a> -->
 </div><!-- /off-canvas -->
 <!-- ============== /MENU ============ -->
 

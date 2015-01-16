@@ -13,7 +13,8 @@ var gameState = {
         correctAnswers: 0,
         wrongAnswers: 0,
         powerUps: 0
-    }
+    },
+    timer: {}
 };
 
 function initialize() {

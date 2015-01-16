@@ -44,6 +44,7 @@ function bindMenu() {
 		$('.container').html(html);
 		bindAba();
 		bindLinks();
+		bindStartGameButton();
 		$('body').toggleClass('off-canvas-active');
 	});
 
@@ -118,6 +119,7 @@ function bindRemoveFinal(){
 
 	$(".final-facebook").off().on("click", function() {
 		console.log("ir pro facebook...");
+		shareOnFB();
 		$('body').removeClass('final-active');
 	});
 }
@@ -183,11 +185,31 @@ function displayScreen(screen, obj) {
 
 }
 
+function bindTelecinePlayLinks() {
+	var source = $("#links-for-telecine-play").html();
+	var template = Handlebars.compile(source);
+	var html;
+
+	gameState.links = gameState.rounds[gameState.game.currentLevel];
+
+	html = template(gameState);
+
+	$(".telecine-box").html(html);
+
+}
+
 function displayFinalScreen() {
 	var roundScore = calculateScore();
 	var correct = gameState.round.correctAnswers;
 
 	gameState.player.score += roundScore;
+
+	if (gameState.player.score > gameState.player.highScore) {
+		gameState.player.highScore = gameState.player.score;
+		localStorage.setItem("highScore", gameState.player.score);
+	}
+
+	bindTelecinePlayLinks();
 
 	$(".total-pontos").html(gameState.player.score);
 	$("#correct-answers-display").html(correct);
@@ -195,7 +217,12 @@ function displayFinalScreen() {
 
 	$('body').addClass('final-active');
 
-	initializeLevel(gameState.game.currentLevel + 1);
+	if (gameState.game.currentLevel < 9) {
+		initializeLevel(gameState.game.currentLevel + 1);
+	} else {
+		gameState.player.score = 0;
+		initializeLevel(0);
+	}
 
 }
 
@@ -237,7 +264,28 @@ function calculateScore() {
 	return score;
 }
 
+function updateTimer() {
+	var now = new Date().getTime();
+	var start = gameState.timer.start;
+	var elapsed = Math.round((now - start) / 1000, 0);
+
+	if (elapsed >= 30) {
+		// time over!
+		gameState.round.wrongAnswers++;
+		displayNextQuesiton();
+	} else {
+		var width = 100 - Math.round((100 * elapsed) / 30, 0);
+
+		$(".tempo").width(width + "%");
+	}
+}
+
 function displayNextQuesiton() {
+
+	// Stop timer
+	clearInterval(gameState.timer.pid);
+	gameState.timer.pid = null;
+
 	gameState.game.currentQuestion++;
 
 	if (gameState.game.currentQuestion >= 10) {
@@ -307,10 +355,16 @@ function displayCurrentQuestion() {
 
 		var x = _.random(0, gameState.quizData.length);
 
-		answers.push({
-			correct: false,
-			text: gameState.quizData[x].nome_portugues
-		});
+		try {
+			answers.push({
+				correct: false,
+				text: gameState.quizData[x].nome_portugues
+			});
+		} catch(n) {
+			// something odd... try again...
+			console.log("Something odd with item: " + x + " " + gameState.quizData[x]);
+			i--;
+		}
 	}
 
 	answers = _.shuffle(answers);
@@ -339,6 +393,13 @@ function displayCurrentQuestion() {
 		}
 	}
 
+	// Timer handling
+	gameState.timer.start = new Date().getTime();
+	gameState.timer.pid = setInterval(updateTimer, 300);
+	$(".tempo").width( "100%");
+
+
+
 	$('body').addClass('game-active');
 
 	$('body').removeClass('game-mask-active');
@@ -352,4 +413,15 @@ function displayCurrentQuestion() {
 
 }
 
-// TODO: Fix move between rounds and score.
+function shareOnFB() {
+	var link = "https://www.facebook.com/dialog/share?"
+
+	link += "app_id=145634995501895";
+	link += "&display=popup&caption=" +  encodeURIComponent("Venha jogar");
+	link += "&link=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
+	link += "&redirect_uri=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
+
+	console.log(link);
+
+	window.open(link);
+}
