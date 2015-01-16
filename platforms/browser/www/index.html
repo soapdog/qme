@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
+        <title>Que filme é esse?</title>
+        <script type="text/x-template" id="inicio">
+             <div class="content-scroll">
+                <div class="perfil">
+                    <div class="perfil-avatar">
+                        <img src="assets/img/avatar.jpg" class="perfil-avatar-img">
+                    </div><!-- perfil-avatar -->
+                    <h2 class="perfil-nome">Thiago Sobrinho</h2><!-- perfil-nome -->
+                    <span class="perfil-ultima-jogada">Última jogada há 19h</span><!-- perfil-ultima-jogada -->
+                    <div>
+                        <div class="btn-perfil btn-convidar">Convidar Amigo</div>
+                        <div class="btn-perfil btn-como-jogar">Como Jogar</div>
+                    </div>
+                </div><!-- perfil -->
+                <div class="perfil-tab-wrap">
+                    <div class="perfil-tab pontos">
+                        Pontos <span class="valor">45</span> 
+                        <span class="icons dinheiro">icon</span>
+                    </div><!-- perfil-tab pontos -->
+                    <div class="perfil-tab record">
+                        Recorde <span class="valor">82</span> 
+                        <span class="icons taca">icon</span>
+                    </div><!-- perfil-tab record -->
+                </div>
+
+                <div href="#game" class="btn-jogar-agora jogar-agora-inicio abrir-jogo">
+                    Jogar Agora
+                </div>
+
+            </div><!--/content-scroll -->
+        </script>
+        <script type="text/x-template" id="ranking">
+                <div class="ranking-bar">
+                    Ranking
+                    <div class="ranking-titles">
+                        <span class="ranking-title-right">Pontos</span>
+                        <span class="ranking-title-left">Jogador</span>
+                    </div><!-- ranking-titles -->
+                </div><!-- ranking-bar -->
+
+                <div class="content-scroll" style="top: 50px">
+
+                   <div class="ranking-usuario">
+                        <div class="ranking-pontos">900</div>
+                        <div class="ranking-avatar">
+                            <img src="assets/img/avatar.jpg" class="ranking-avatar-img">
+                        </div><!-- ranking-avatar -->
+                        <div class="ranking-avatar-medalha"></div><!-- medalha \O/ -->
+                        <div class="ranking-nome">Thiago Sobrinho</div>
+                   </div>
+                   <div class="ranking-usuario">
+                        <div class="ranking-pontos">800</div>
+                        <div class="ranking-avatar">
+                            <img src="assets/img/avatar.jpg" class="ranking-avatar-img">
+                        </div><!-- ranking-avatar -->
+                        <div class="ranking-nome">Thiago Sobrinho</div>
+                   </div>
+                </div><!--/content-scroll -->
+        </script>
+        <script type="text/x-template" id="badge">
+            <div class="badges-bar">
+                    Badges Conquistados
+                </div><!-- badges-bar -->
+                <div class="content-scroll" style="top: 45px">
+                <!--
+                    para marcar como checado, adicione a classe " badge-conquistado " na div badge
+                    vai mover o fundo para a posição correta
+                -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div><!-- adiciona o ícone -->
+                        <div class="badge-img badge-estrela"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Estela de cinema</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado "><!-- -->
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-estrela"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Estela de cinema</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-diretor"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Diretor</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-diretor"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Diretor</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-roteirista"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Roteirista</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-roteirista"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Roteirista</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-bilheteiro"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Bilheteiro</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-bilheteiro"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Bilheteiro</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-cameraman"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Camera man</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-cameraman"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Camera man</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-lanterninha"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Lanterninha</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-lanterninha"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Lanterninha</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                    <div class="badge">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-pipoqueiro"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Pipoqueiro</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+                    <div class="badge badge-conquistado ">
+                        <div class="badge-check"></div>
+                        <div class="badge-img badge-pipoqueiro"></div>
+                        <div class="badge-center">
+                            <div class="badge-nome">Pipoqueiro</div>
+                            <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>   
+                        </div> <!-- badge-center -->
+                    </div><!-- badge -->
+
+                </div><!-- content-scroll -->
+        </script>
+        <script type="text/x-template" id="como-jogar">
+
+                <!-- 
+                eu movo a aba mudando o left da  div "aba-content"
+                -->
+
+                <div class="comojogar-bar">
+                    Como Jogar
+                </div><!-- comojogar-bar -->
+                <div class="comojogar-aba">
+
+                    <div class="aba-item mecanica aba-active">Mecanica do jogo</div>
+                    <div class="aba-item niveis">Níveis</div>
+                    <div class="aba-item recursos">Recursos</div>
+
+                </div><!-- comojogar-aba -->
+
+                <div class="comojogar-content" style="top: 82px; bottom: 65px">
+                    <div class="aba-content"> <!-- recursos -->
+
+                            <div class="separador">
+                                <div class="circle circle-right"></div>
+                                <div class="circle circle-left"></div>
+                                <div class="line"></div>
+                                <div class="separator-icon separator-recursos"></div>
+                            </div>
+
+                            <div class="recurso">
+                                <div class="recurso-img pular"></div>
+                                <div class="recurso-center">
+                                    <div class="recurso-nome">Pular</div>
+                                    <div class="recurso-txt">Você pode pular a pergunta apenas uma vez por rodada. Use com sabedoria.</div>   
+                                </div> <!-- recurso-center -->
+                            </div><!-- recurso -->
+
+                            <div class="recurso">
+                                <div class="recurso-img dica"></div>
+                                <div class="recurso-center">
+                                    <div class="recurso-nome">Dica</div>
+                                    <div class="recurso-txt">Pense bem antes de clicar. Você só tem uma dica por rodada.</div>   
+                                </div> <!-- recurso-center -->
+                            </div><!-- recurso -->
+
+                            <div class="recurso">
+                                <div class="recurso-img bomba"></div>
+                                <div class="recurso-center">
+                                    <div class="recurso-nome">Bomba</div>
+                                    <div class="recurso-txt">Este recurso elimina duas das quatro opções acima. Cuidado! Você só pode usá-lo uma vez a cada rodada.</div>   
+                                </div> <!-- recurso-center -->
+                            </div><!-- /recurso -->
+
+                    </div> <!-- recursos -->
+
+                    <div class="aba-content"> <!-- niveis -->
+
+                            <div class="separador">
+                                <div class="circle circle-right"></div>
+                                <div class="circle circle-left"></div>
+                                <div class="line"></div>
+                                <div class="separator-icon separator-niveis"></div>
+                            </div>
+
+                            <div class="txt-content-abas">
+                                São <strong>8 rodadas de 10 perguntas</strong> cada. Para passar de nível, é preciso <strong> acertar pelo menos 7 perguntas da rodada.</strong>  Ao completar as 8 rodadas, você vira um <strong> Astro de Cinema.</strong>
+                            </div>
+                    </div><!-- /niveis -->
+
+                    <div class="aba-content">
+
+                        <div class="separador">
+                            <div class="circle circle-right"></div>
+                            <div class="circle circle-left"></div>
+                            <div class="line"></div>
+                            <div class="separator-icon separator-mecanica"></div>
+                        </div>
+
+                        <div class="txt-content-abas">
+                            Você terá <strong>30 segundos</strong> para descobrir o nome do filme com base nas imagens, frases ou curiosidades que daremos. Caso não esteja certo da resposta, você pode pedir uma dica, eliminar alternativas com a bomba ou pular a pergunta. Se o tempo acabar e você não responder, seu ponto não será computado. 
+                        </div>
+                    </div>
+                </div><!-- content-scroll -->
+                <div class="jogar-agora-como-jogar">
+                    <div href="#game" class="btn-jogar-agora abrir-jogo">
+                        Jogar Agora
+                    </div><!-- btn-jogar-agora -->
+                </div><!-- jogar-agora-como-jogar -->
+
+                
+        </script>
+
+    </head>
+    <body >
+        <!-- ================================ -->
+        <!--  MENU  -->
+        <!-- ================================ -->
+        <div class="screen off-canvas">
+            <div class="connect">
+                <h2 class="tt-facebox">Conecte-se com o facebook</h2>
+                <p class="txt-facebox">
+                 Conecte para poder ativar a funcionalidade do aplicativo. Não postaremos nada no seu mural sem sua permissão
+                </p>
+                <a id="fb-button" href="#fbop"><img src="assets/img/btn/btn-facebook.png" class="btn-facebook"></a>
+            </div>
+            <a href="#inicio" class="item-menu icon-inicio">Início</a>
+            <a href="#badge" class="item-menu icon-badges">Badges conquistados</a>
+            <a href="#ranking" class="item-menu icon-ranking">Ranking</a>
+            <a href="#como-jogar" class="item-menu icon-como-jogar">Como jogar</a>
+            <a href="#" class="item-menu icon-configuracoes">Configurações</a>
+        </div><!-- /off-canvas -->
+        <!-- ============== /MENU ============ -->
+
+
+        <!-- ================================ -->
+        <!-- Tela principal -->
+        <!-- ================================ -->
+        <div class="screen container-principal">
+
+            <!-- ======================== -->
+            <!-- Barra do topo -->
+            <!-- ======================== -->
+            <div class="bar">
+                <p class="icon-bar icon-menu open-menu"></p> 
+                Que filme é esse
+            </div><!-- /bar -->
+            <!-- /Barra do topo -->
+
+
+            <!-- ==================================================== -->
+            <!-- conteúdo dos itens do menu abrem dentro do container -->
+            <!-- ==================================================== -->
+            <div class="container">
+
+
+                <!-- =================================================== -->
+                <!-- content-scroll é a div que possui rolagem -->
+                <!-- =================================================== -->
+                <div class="content-scroll">
+                    <div class="perfil">
+                        <div class="perfil-avatar">
+                            <img src="assets/img/avatar.jpg" class="perfil-avatar-img">
+                        </div><!-- perfil-avatar -->
+                        <h2 class="perfil-nome">Thiago Sobrinho</h2><!-- perfil-nome -->
+                        <span class="perfil-ultima-jogada">Última jogada há 19h</span><!-- perfil-ultima-jogada -->
+                        <div>
+                            <div class="btn-perfil btn-convidar">Convidar Amigo</div>
+                            <div class="btn-perfil btn-como-jogar">Como Jogar</div>
+                        </div>
+                    </div><!-- perfil -->
+                    <div class="perfil-tab-wrap">
+                        <div class="perfil-tab pontos">
+                            Pontos <span class="valor">45</span> 
+                            <span class="icons dinheiro">icon</span>
+                        </div><!-- perfil-tab pontos -->
+                        <div class="perfil-tab record">
+                            Recorde <span class="valor">82</span> 
+                            <span class="icons taca">icon</span>
+                        </div><!-- perfil-tab record -->
+                    </div>
+
+                    <div href="#game" class="btn-jogar-agora jogar-agora-inicio abrir-jogo">
+                        Jogar Agora
+                    </div>
+
+                </div><!--/content-scroll -->
+
+                
+            </div><!-- container -->
+
+
+        </div><!-- /container-principal -->
+        <!-- ================================ -->
+        <!-- /Tela principal -->
+        <!-- ================================ -->  
+
+
+        <!-- =================================================== -->
+        <!-- tela do game -->
+        <!-- para esta tela aparecer adicione a classe .game-active -->
+        <!-- em uma div pai tipo body -->
+        <!-- =================================================== -->
+        <div class="screen game">
+            
+            <!-- =================================================== -->
+            <!-- content-scroll é a div que possui rolagem -->
+            <!-- =================================================== -->
+            <div class="content-scroll" style="bottom: 50px">
+
+                
+                <div class="game-header">
+                    <div class="nivel-atual">1-10</div>
+                    <div class="nome-nivel"> Nível: Diretor</div>
+                    
+                    <!-- =================================================== -->
+                    <!-- o tempo é o width da div abaixo em % -->
+                    <!-- =================================================== -->
+                    <div class="tempo"></div>
+
+
+                </div>
+                
+                
+                <div class="box-pergunta">
+                    <div class="box-pergunta-txt">
+                            Em um local onde só tinham pizzas, as de aliche foram expulsas pelas pizzas de ervilha. Qual é o nome do filme ?
+                    </div><!-- box-tempo-atual -->
+                </div><!-- box-pergunta -->
+
+                <!-- =================================================== -->
+                <!-- respostas -->
+                <!-- =================================================== -->
+                <div class="resposta">
+                   <div class="resposta-txt">
+                       <div class="cell">Não quero responder</div>
+                    </div>
+                </div><!-- resposta -->
+
+                <div class="resposta">
+                   <div class="resposta-txt">
+                       <div class="cell">Não quero responder</div>
+                    </div>
+                </div><!-- resposta -->
+
+                <!-- =================================================== -->
+                <!-- resposta certa - adicione na div resposta  a classe -->
+                <!-- resposta-certa que a div resposta-txt ai ficar verde -->
+                <!-- e dentro de resposta-txt adicione <div class="icone-certo"></div> -->
+                <!-- que é o ícone correspondente-->
+                <!-- =================================================== -->
+                <div class="resposta resposta-certa">
+                   <div class="resposta-txt">
+                        <div class="icone-certo"></div>
+                        <div class="cell">
+                        Não quero responder Não quero responder Não quero responderNão quero responder
+                        </div>
+                    </div>
+                </div><!-- resposta -->
+
+                <!-- =================================================== -->
+                <!-- resposta errada - adicione na div resposta  a classe -->
+                <!-- resposta-errada que a div resposta-txt ai ficar vermelha -->
+                <!-- e dentro de resposta-txt adicione <div class="icone-errado"></div> -->
+                <!-- que é o ícone correspondente-->
+                <!-- =================================================== -->
+                <div class="resposta resposta-errada">
+                    <div class="resposta-txt">
+                        <div class="icone-errado"></div>
+                        <div class="cell">Não quero responder</div>
+                    </div>
+                </div><!-- resposta -->
+
+
+
+            </div>
+            <!-- /content scroll -->
+
+            <!-- =================================================== -->
+            <!-- barra inferior da tela do game -->
+            <!-- =================================================== -->
+            <div class="game-action-bar">
+                <div class="game-actions pular">
+                    <div class="num">10</div>
+                    <div class="txt">Pular</div>
+                </div>
+                <div class="game-actions dica">
+                     <div class="num">10</div>
+                    <div class="txt">Dica</div>
+                </div>
+                <div class="game-actions bomba">
+                     <div class="num">10</div>
+                    <div class="txt">Bomba</div>
+                </div>
+            </div><!-- game-action-bar -->
+
+            <!-- =================================================== -->
+            <!-- máscara preta que parece o fundo de um lightbox -->
+            <!-- para esta tela aparecer adicione a classe .game-mask-active -->
+            <!-- em uma div pai tipo body -->
+            <!-- =================================================== -->
+            <div class="game-mask"></div>
+
+        </div><!-- tela do game -->
+
+        <!-- =========================================================== -->
+        <!-- tela amarela que eu chamei de final pq não tinha um nome :) -->
+        <!-- para esta tela aparecer adicione a classe .final-active -->
+        <!-- em uma div pai tipo body -->
+        <!-- =========================================================== -->
+        <div class="screen final">
+                <div class="content-scroll">
+
+                    <div class="game-border"></div>
+                    <div class="parabens">PARABÉNS</div>
+                    <div class="moedas"></div>
+                    <div class="acertos">Você acertou 7/70</div>
+                    <div class="txt-proximo-nivel">Você passou para o próximo nível. Avance para continuar o desafio.</div>
+                    <div class="total-pontos">1500</div>
+
+                    <div class="final-buttons-container">
+                        <a href="#" class="final-buttons final-menu"></a>
+                        <a href="#" class="final-buttons final-facebook"></a>
+                        <a href="#" class="final-buttons final-avancar"></a>
+                    </div>
+                    
+                    <div class="telecine-box">
+                        <div class="telecine-box-header">Assita esses filmes no telecine play</div> 
+                        <a href="#" class="telecine-box-filme"> 30 Noites de Atividade Paranormal com a Filha dos Homens que não Amavam as Mulheres</span>    </a>                    <a class="telecine-box-filme"> 30 Noites de Atividade Paranormal     </a>
+                        <a href="#" class="telecine-box-filme"> 30 Noites de Atividade Paranormal     </a>
+                    </div><!-- telecine-box -->
+                </div>
+         </div>
+
+
+
+        <script type="text/javascript" src="assets/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="assets/scripts.js"></script>
+
+    </body>
+</html>

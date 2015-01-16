@@ -14,6 +14,7 @@ var gameState = {
         wrongAnswers: 0,
         powerUps: 0
     },
+    question: {},
     timer: {}
 };
 

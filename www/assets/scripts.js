@@ -230,8 +230,45 @@ function powerUpSkip() {
 	if (gameState.round.availablePowerUps.skip > 0) {
 		console.log("Using power up: skip");
 		gameState.round.correctAnswers++;
+		gameState.round.powerUps++;
 		gameState.round.availablePowerUps.skip = 0;
 		displayNextQuesiton();
+	} else {
+		console.log("Can't use power up.");
+	}
+}
+
+function powerUpTip() {
+	if (gameState.round.availablePowerUps.tip > 0) {
+		console.log("Using power up: tip");
+		gameState.round.availablePowerUps.tip = 0;
+		gameState.round.powerUps++;
+
+
+		var array = ["dica_curiosidade", "dica_frase", "dica_imagem"];
+		var arraySemPergunta = _.remove(array, function(elem) {
+			if (elem == gameState.question.selectedQuestionKey) {
+				return false;
+			}
+
+			return true;
+		})
+		var selectedQuestionKey = _.shuffle(arraySemPergunta)[0];
+
+		var tip = gameState.question.film[selectedQuestionKey];
+
+		if (selectedQuestionKey == "dica_imagem") {
+			//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
+			tip = "<img style='max-width: 100%;' src='/assets/img/" +tip + "'/>"
+
+		}
+
+		console.log("tip:",tip);
+
+		$(".box-pergunta-txt").append("<br><b>Dica:</b><br>" + tip);
+
+
+
 	} else {
 		console.log("Can't use power up.");
 	}
@@ -241,6 +278,8 @@ function powerUpBomb() {
 	if (gameState.round.availablePowerUps.bomb > 0) {
 		console.log("Using power up: bomb");
 		gameState.round.availablePowerUps.bomb = 0;
+		gameState.round.powerUps++;
+
 
 		$("[data-bomb]").addClass("resposta-errada");
 
@@ -332,7 +371,9 @@ function displayCurrentQuestion() {
 	var answers = [];
 	var currentFilm = gameState.rounds[gameState.game.currentLevel][gameState.game.currentQuestion];
 
-	var selectedQuestionKey = _.shuffle(["dica_curiosidade", "dica_frase", "dica_imagem"])[1];
+	var selectedQuestionKey = _.shuffle(["dica_curiosidade", "dica_frase", "dica_imagem"])[0];
+
+	gameState.question.selectedQuestionKey = selectedQuestionKey;
 
 	function wrongAnswer() {
 		console.log("Wrong!");
@@ -365,9 +406,8 @@ function displayCurrentQuestion() {
 	}
 
 
-	gameState.question = {
-		question: currentFilm[selectedQuestionKey]
-	};
+	gameState.question.question =  currentFilm[selectedQuestionKey];
+	gameState.question.film = currentFilm;
 
 	if (selectedQuestionKey == "dica_imagem") {
 		//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
@@ -432,6 +472,8 @@ function displayCurrentQuestion() {
 	// bind PowerUps
 	$(".game-actions.pular").off().on("click", powerUpSkip);
 	$(".game-actions.bomba").off().on("click", powerUpBomb);
+	$(".game-actions.dica").off().on("click", powerUpTip);
+
 
 
 	// Timer handling
