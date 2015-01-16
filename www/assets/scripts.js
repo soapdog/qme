@@ -8,10 +8,12 @@ Handlebars.registerHelper('plusone', function(text) {
 
 function bindStartGameButton() {
 	$('.abrir-jogo').off().on("click", function () {
+		console.log("Começando o jogo...");
 		bindResposta()
 		bindFinal()
 		bindRemoveFinal();
 		bindRemoveMask();
+		initializeLevel(0);
 		displayCurrentQuestion();
 	});
 }
@@ -73,15 +75,18 @@ function bindAba(){
 
 }
 
-function bindUserInfo(user) {
+function bindUserInfo() {
 	var source = $("#inicio").html();
 	var template = Handlebars.compile(source);
-	var html = template(user);
+	var html = template(gameState);
 
 	$(".container").html(html);
 	bindAba();
 	bindLinks();
+	bindStartGameButton();
 	$('body').removeClass('off-canvas-active');
+	goBackToContainer();
+
 }
 
 function bindResposta(){
@@ -108,7 +113,7 @@ function bindRemoveFinal(){
 	$(".final-menu").off().on("click", function() {
 		console.log("indo pro menu...");
 		$('body').removeClass('final-active');
-		displayScreen("#inicio");
+		bindUserInfo();
 	});
 
 	$(".final-facebook").off().on("click", function() {
@@ -124,6 +129,15 @@ function bindRemoveMask(){
 }
 
 function loadQuizData(callback) {
+
+	var highScore = localStorage.getItem("highScore");
+
+	if (!highScore) {
+		gameState.player.highScore = 0;
+	} else {
+		gameState.player.highScore = highScore;
+	}
+
 	$.getJSON("/assets/data/filmes.json", function(data) {
 		gameState.quizData = data;
 		callback();
@@ -156,9 +170,10 @@ function goBackToContainer() {
 
 }
 
-function displayScreen(screen, data) {
+function displayScreen(screen, obj) {
 	var source = $(screen).html();
 	var template = Handlebars.compile(source);
+	var data = obj || gameState;
 	var html = template(data);
 
 	$('.container').html(html);
@@ -169,10 +184,12 @@ function displayScreen(screen, data) {
 }
 
 function displayFinalScreen() {
-	var score = calculateScore();
+	var roundScore = calculateScore();
 	var correct = gameState.round.correctAnswers;
 
-	$(".total-pontos").html(score);
+	gameState.player.score += roundScore;
+
+	$(".total-pontos").html(gameState.player.score);
 	$("#correct-answers-display").html(correct);
 
 
@@ -225,9 +242,9 @@ function displayNextQuesiton() {
 
 	if (gameState.game.currentQuestion >= 10) {
 
-		setTimeout(displayFinalScreen, 1000);
+		setTimeout(displayFinalScreen, 500);
 	} else {
-		setTimeout(displayCurrentQuestion, 1000);
+		setTimeout(displayCurrentQuestion, 500);
 	}
 }
 
@@ -276,7 +293,9 @@ function displayCurrentQuestion() {
 	};
 
 	if (selectedQuestionKey == "dica_imagem") {
-		gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
+		//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
+		gameState.question.question = "<img style='max-width: 100%;' src='/assets/img/" +gameState.question.question + "'/>"
+
 	}
 
 	answers.push({

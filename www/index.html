@@ -119,6 +119,7 @@
 
     <script type="text/x-handlebars-template" id="inicio">
         <div class="content-scroll">
+            {{#if player.uid}}
             <div class="perfil">
                 <div class="perfil-avatar">
                     <img src="assets/img/avatar.jpg" class="perfil-avatar-img">
@@ -130,6 +131,7 @@
                     <div data-link data-url="#como-jogar" class="btn-perfil btn-como-jogar">Como Jogar</div>
                 </div>
             </div><!-- perfil -->
+            {{/if}}
             <div class="perfil-tab-wrap">
                 <div class="perfil-tab pontos">
                     Pontos <span class="valor">{{player.score}}</span>
@@ -141,7 +143,7 @@
                 </div><!-- perfil-tab record -->
             </div>
 
-            <div data-link data-url="#game" class="btn-jogar-agora jogar-agora-inicio abrir-jogo">
+            <div class="btn-jogar-agora jogar-agora-inicio abrir-jogo">
                 Jogar Agora
             </div>
 
@@ -388,7 +390,7 @@
             </div>
         </div><!-- content-scroll -->
         <div class="jogar-agora-como-jogar">
-            <div data-link data-url="#game" class="btn-jogar-agora abrir-jogo">
+            <div class="btn-jogar-agora abrir-jogo">
                 Jogar Agora
             </div><!-- btn-jogar-agora -->
         </div><!-- jogar-agora-como-jogar -->
