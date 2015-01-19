@@ -133,12 +133,19 @@ function bindRemoveMask(){
 function loadQuizData(callback) {
 
 	var highScore = localStorage.getItem("highScore");
+	var badges = localStorage.getItem("badges");
 
 	if (!highScore) {
 		gameState.player.highScore = 0;
 	} else {
 		gameState.player.highScore = highScore;
 	}
+
+	if (badges) {
+		gameState.player.badges = JSON.parse(badges);
+	}
+
+
 
 	console.log("trying to load JSON...");
 
@@ -194,11 +201,29 @@ function bindTelecinePlayLinks() {
 	var template = Handlebars.compile(source);
 	var html;
 
-	gameState.links = gameState.rounds[gameState.game.currentLevel];
+	gameState.links = _.filter(gameState.rounds[gameState.game.currentLevel], function(film){
+		if (film.link_play !== "") {
+			return true;
+		} else {
+			return false;
+		}
+	});
+
+
+
+	console.log("Fetching telecine play links for level: " + gameState.game.currentLevel);
+	console.log("links:", gameState.links);
+
+	//gameState.links = _.filter(gameState.links, {})
 
 	html = template(gameState);
 
-	$(".telecine-box").html(html);
+	if (gameState.links.length > 0) {
+		$(".telecine-box").html(html);
+		$(".telecine-box").show();
+	} else {
+		$(".telecine-box").hide();
+	}
 
 }
 
@@ -214,6 +239,7 @@ function displayFinalScreen() {
 	}
 
 	bindTelecinePlayLinks();
+	awardBadges();
 
 	$(".total-pontos").html(gameState.player.score);
 	$("#correct-answers-display").html(correct);
@@ -222,7 +248,12 @@ function displayFinalScreen() {
 	$('body').addClass('final-active');
 
 	if (gameState.game.currentLevel < 9) {
-		initializeLevel(gameState.game.currentLevel + 1);
+		if (gameState.round.wrongAnswers <= 3) {
+			initializeLevel(gameState.game.currentLevel + 1);
+		} else {
+			gameState.player.score -= roundScore;
+			initializeLevel(gameState.game.currentLevel);
+		}
 	} else {
 		gameState.player.score = 0;
 		initializeLevel(0);
@@ -236,7 +267,8 @@ function powerUpSkip() {
 		gameState.round.correctAnswers++;
 		gameState.round.powerUps++;
 		gameState.round.availablePowerUps.skip = 0;
-		displayNextQuesiton();
+		$(".game-actions.pular > .num").html("0");
+		displayNextQuestion();
 	} else {
 		console.log("Can't use power up.");
 	}
@@ -262,7 +294,9 @@ function powerUpTip() {
 		var tip = gameState.question.film[selectedQuestionKey];
 
 		if (selectedQuestionKey == "dica_imagem") {
-			var path = window.location.href.replace('index.html', '').replace("#","");
+			//var path = window.location.href.replace('index.html', '').replace("#","");
+			var path = gameState.host;
+
 
 			//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
 			tip = "<img style='max-width: 100%;' src='" + path + "assets/img/" +tip + "'/>"
@@ -274,6 +308,8 @@ function powerUpTip() {
 		$(".box-pergunta-txt").append("<br><b>Dica:</b><br>" + tip);
 
 
+		$(".game-actions.dica > .num").html("0");
+
 
 	} else {
 		console.log("Can't use power up.");
@@ -281,11 +317,13 @@ function powerUpTip() {
 }
 
 function powerUpBomb() {
+
 	if (gameState.round.availablePowerUps.bomb > 0) {
 		console.log("Using power up: bomb");
 		gameState.round.availablePowerUps.bomb = 0;
 		gameState.round.powerUps++;
 
+		$(".game-actions.bomba > .num").html("0");
 
 		$("[data-bomb]").addClass("resposta-errada");
 
@@ -342,6 +380,14 @@ function calculateScore() {
 	return Math.round(score,0);
 }
 
+function awardBadges() {
+	if (gameState.round.wrongAnswers <= 3) {
+		gameState.player.badges[gameState.game.currentLevel] = true;
+
+		localStorage.setItem("badges", JSON.stringify(gameState.player.badges));
+	}
+}
+
 function updateTimer() {
 	var now = new Date().getTime();
 	var start = gameState.timer.start;
@@ -350,7 +396,7 @@ function updateTimer() {
 	if (elapsed >= 30) {
 		// time over!
 		gameState.round.wrongAnswers++;
-		displayNextQuesiton();
+		displayNextQuestion();
 	} else {
 		var width = 100 - Math.round((100 * elapsed) / 30, 0);
 
@@ -358,7 +404,7 @@ function updateTimer() {
 	}
 }
 
-function displayNextQuesiton() {
+function displayNextQuestion() {
 
 	// Stop timer
 	clearInterval(gameState.timer.pid);
@@ -397,7 +443,7 @@ function displayCurrentQuestion() {
 
 		$(this).html(html);
 
-		displayNextQuesiton();
+		displayNextQuestion();
 	}
 
 	function correctAnswer() {
@@ -412,14 +458,15 @@ function displayCurrentQuestion() {
 
 		$(this).html(html);
 
-		displayNextQuesiton();
+		displayNextQuestion();
 	}
 
 
 	gameState.question.question =  currentFilm[selectedQuestionKey];
 	gameState.question.film = currentFilm;
 
-	var path = window.location.href.replace('index.html', '').replace("#","");
+	//var path = window.location.href.replace('index.html', '').replace("#","");
+	var path = gameState.host;
 
 
 	if (selectedQuestionKey == "dica_imagem") {
@@ -523,3 +570,18 @@ function shareOnFB() {
 
 	window.open(link);
 }
+
+
+// Handebars helpers
+
+Handlebars.registerHelper("levelName", function(level) {
+	return gameState.levels[level];
+});
+
+Handlebars.registerHelper('hasBadge', function(badgeNum, options) {
+	if(gameState.player.badges[badgeNum-1]) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});

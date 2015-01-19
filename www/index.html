@@ -9,7 +9,7 @@
     <title>Que filme é esse?</title>
 
     <script type="text/x-handlebars-template" id="links-for-telecine-play">
-        <div class="telecine-box-header">Assita esses filmes no telecine play</div>
+        <div class="telecine-box-header">Assista esses filmes no telecine play</div>
         {{#each links}}
         <a href="{{link_play}}" target="_blank" class="telecine-box-filme">{{nome_portugues}}</a>
         {{/each}}
@@ -35,7 +35,7 @@
 
             <div class="game-header">
                 <div class="nivel-atual">{{plusone game.currentLevel}}-{{plusone game.currentQuestion}}</div>
-                <div class="nome-nivel"> Nível: Diretor</div>
+                <div class="nome-nivel"> Nível: {{levelName game.currentLevel}}</div>
 
                 <!-- =================================================== -->
                 <!-- o tempo é o width da div abaixo em % -->
@@ -194,7 +194,8 @@
                 vai mover o fundo para a posição correta
             -->
 
-            <div class="badge">
+            {{#hasBadge 7}}
+            <div class="badge badge-conquistado">
                 <div class="badge-check"></div><!-- adiciona o ícone -->
                 <div class="badge-img badge-estrela"></div>
                 <div class="badge-center">
@@ -202,7 +203,8 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-            <div class="badge badge-conquistado "><!-- -->
+            {{else}}
+            <div class="badge"><!-- -->
                 <div class="badge-check"></div>
                 <div class="badge-img badge-estrela"></div>
                 <div class="badge-center">
@@ -210,7 +212,18 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
+            {{/hasBadge}}
 
+            {{#hasBadge 7}}
+            <div class="badge  badge-conquistado ">
+                <div class="badge-check"></div>
+                <div class="badge-img badge-diretor"></div>
+                <div class="badge-center">
+                    <div class="badge-nome">Diretor</div>
+                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
+                </div> <!-- badge-center -->
+            </div><!-- badge -->
+            {{else}}
             <div class="badge">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-diretor"></div>
@@ -219,15 +232,36 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-            <div class="badge badge-conquistado ">
+            {{/hasBadge}}
+            {{#hasBadge 6}}
+            <div class="badge  badge-conquistado ">
                 <div class="badge-check"></div>
-                <div class="badge-img badge-diretor"></div>
+                <div class="badge-img badge-produtor"></div>
                 <div class="badge-center">
-                    <div class="badge-nome">Diretor</div>
+                    <div class="badge-nome">Produtor</div>
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-
+            {{else}}
+            <div class="badge">
+                <div class="badge-check"></div>
+                <div class="badge-img badge-produtor"></div>
+                <div class="badge-center">
+                    <div class="badge-nome">Produtor</div>
+                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
+                </div> <!-- badge-center -->
+            </div><!-- badge -->
+            {{/hasBadge}}
+            {{#hasBadge 5}}
+            <div class="badge  badge-conquistado ">
+                <div class="badge-check"></div>
+                <div class="badge-img badge-roteirista"></div>
+                <div class="badge-center">
+                    <div class="badge-nome">Roteirista</div>
+                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
+                </div> <!-- badge-center -->
+            </div><!-- badge -->
+            {{else}}
             <div class="badge">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-roteirista"></div>
@@ -236,23 +270,8 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-            <div class="badge badge-conquistado ">
-                <div class="badge-check"></div>
-                <div class="badge-img badge-roteirista"></div>
-                <div class="badge-center">
-                    <div class="badge-nome">Roteirista</div>
-                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
-                </div> <!-- badge-center -->
-            </div><!-- badge -->
-
-            <div class="badge">
-                <div class="badge-check"></div>
-                <div class="badge-img badge-bilheteiro"></div>
-                <div class="badge-center">
-                    <div class="badge-nome">Bilheteiro</div>
-                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
-                </div> <!-- badge-center -->
-            </div><!-- badge -->
+            {{/hasBadge}}
+            {{#hasBadge 4}}
             <div class="badge badge-conquistado ">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-bilheteiro"></div>
@@ -261,15 +280,17 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-
+            {{else}}
             <div class="badge">
                 <div class="badge-check"></div>
-                <div class="badge-img badge-cameraman"></div>
+                <div class="badge-img badge-bilheteiro"></div>
                 <div class="badge-center">
-                    <div class="badge-nome">Camera man</div>
+                    <div class="badge-nome">Bilheteiro</div>
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
+            {{/hasBadge}}
+            {{#hasBadge 3}}
             <div class="badge badge-conquistado ">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-cameraman"></div>
@@ -278,7 +299,26 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-
+            {{else}}
+            <div class="badge">
+                <div class="badge-check"></div>
+                <div class="badge-img badge-cameraman"></div>
+                <div class="badge-center">
+                    <div class="badge-nome">Camera man</div>
+                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
+                </div> <!-- badge-center -->
+            </div><!-- badge -->
+            {{/hasBadge}}
+            {{#hasBadge 2}}
+            <div class="badge  badge-conquistado ">
+                <div class="badge-check"></div>
+                <div class="badge-img badge-lanterninha"></div>
+                <div class="badge-center">
+                    <div class="badge-nome">Lanterninha</div>
+                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
+                </div> <!-- badge-center -->
+            </div><!-- badge -->
+            {{else}}
             <div class="badge">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-lanterninha"></div>
@@ -287,15 +327,17 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
+            {{/hasBadge}}
+            {{#hasBadge 1}}
             <div class="badge badge-conquistado ">
                 <div class="badge-check"></div>
-                <div class="badge-img badge-lanterninha"></div>
+                <div class="badge-img badge-pipoqueiro"></div>
                 <div class="badge-center">
-                    <div class="badge-nome">Lanterninha</div>
+                    <div class="badge-nome">Pipoqueiro</div>
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-
+            {{else}}
             <div class="badge">
                 <div class="badge-check"></div>
                 <div class="badge-img badge-pipoqueiro"></div>
@@ -304,15 +346,7 @@
                     <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
                 </div> <!-- badge-center -->
             </div><!-- badge -->
-            <div class="badge badge-conquistado ">
-                <div class="badge-check"></div>
-                <div class="badge-img badge-pipoqueiro"></div>
-                <div class="badge-center">
-                    <div class="badge-nome">Pipoqueiro</div>
-                    <div class="badge-txt">Ganhe 5 rodadas seguidas para poder obter</div>
-                </div> <!-- badge-center -->
-            </div><!-- badge -->
-
+            {{/hasBadge}}
         </div><!-- content-scroll -->
     </script>
     <script type="text/x-handlebars-template" id="como-jogar">
@@ -619,7 +653,7 @@
         </div>
 
         <div class="telecine-box">
-            <div class="telecine-box-header">Assita esses filmes no telecine play</div>
+            <div class="telecine-box-header">Assista esses filmes no telecine play</div>
             <a href="#" class="telecine-box-filme"> 30 Noites de Atividade Paranormal com a Filha dos Homens que não Amavam as Mulheres</span>    </a>                    <a class="telecine-box-filme"> 30 Noites de Atividade Paranormal     </a>
             <a href="#" class="telecine-box-filme"> 30 Noites de Atividade Paranormal     </a>
         </div><!-- telecine-box -->
