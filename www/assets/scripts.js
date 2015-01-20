@@ -36,11 +36,15 @@ function bindLinks() {
 
 function bindMenu() {
 	// Gerenciamento do menu
-	$('.item-menu').off().on('click', function () {
+	$('.item-menu').off().on('click', function (event) {
 		var id = $(this).attr('href');
 		var content = $(id).html();
 		var template = Handlebars.compile(content);
 		var html = template(gameState);
+
+		event.preventDefault();
+		event.stopPropagation();
+
 		$('.container').html(html);
 		bindAba();
 		bindLinks();
