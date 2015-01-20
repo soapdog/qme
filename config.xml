@@ -8,16 +8,21 @@
         VX Comunicação
     </author>
 
-    <icon src="res/Icones/ios/ipad/icon/x152.png" />
+    <icon src="www/res/Icones/ios/ipad/icon/x152.png" />
 
 
     <platform name="android">
         <!-- you can use any density that exists in the Android project -->
 
-        <splash src="res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
-        <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
-        <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
-        <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+        <splash src="www/res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
+        <splash src="www/res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="www/res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
+        <splash src="www/res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+
+        <gap:splash src="res/screen/android/splash-port-ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+        <gap:splash src="res/screen/android/splash-port-mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+        <gap:splash src="res/screen/android/splash-port-hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+        <gap:splash src="res/screen/android/splash-port-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
     </platform>
 
     <platform name="ios">
