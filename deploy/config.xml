@@ -1,5 +1,9 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="me.vxcomm.qme" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget xmlns       = "http://www.w3.org/ns/widgets"
+        xmlns:gap       = "http://phonegap.com/ns/1.0"
+        xmlns:android   = "http://schemas.android.com/apk/res/android"
+        id              = "me.vxcom.qme"
+        version         = "1.0.0">
+
     <name>Que Filme É Esse?</name>
     <description>
         Que filme é esse?
@@ -16,17 +20,12 @@
     </gap:config-file>
 
 
-    <icon src="www/res/Icones/ios/ipad/icon/x152.png" />
+    <icon src="res/Icones/ios/ipad/icon/x152.png" />
 
 
     <platform name="android">
         <!-- you can use any density that exists in the Android project -->
-
-        <splash src="www/res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
-        <splash src="www/res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
-        <splash src="www/res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
-        <splash src="www/res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/>
-
+        
         <gap:splash src="res/screen/android/splash-port-ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
         <gap:splash src="res/screen/android/splash-port-mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
         <gap:splash src="res/screen/android/splash-port-hdpi.png" gap:platform="android" gap:qualifier="hdpi" />

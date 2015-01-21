@@ -9,7 +9,6 @@ fi
 echo "Copying resources..."
 mkdir deploy
 cd deploy
-cp ../config.xml ./
 cp -r ../www/* ./
 cd ..
 
