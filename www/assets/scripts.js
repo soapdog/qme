@@ -1,11 +1,4 @@
 
-Handlebars.registerHelper('plusone', function(text) {
-
-	var result = text + 1;
-
-	return new Handlebars.SafeString(result);
-});
-
 function bindStartGameButton() {
 	$('.abrir-jogo').off().on("click", function () {
 		console.log("Começando o jogo...");
@@ -13,7 +6,7 @@ function bindStartGameButton() {
 		bindFinal()
 		bindRemoveFinal();
 		bindRemoveMask();
-		initializeLevel(0);
+		initializeLevel(gameState.game.currentLevel);
 		displayCurrentQuestion();
 	});
 }
@@ -64,6 +57,11 @@ function bindMenu() {
 		$('body').toggleClass('off-canvas-active');
 	});
 
+	// FB button
+	$("#fb-button").off().on('click', function() {
+		login();
+	});
+
 }
 
 // Bind tab panel
@@ -83,6 +81,14 @@ function bindAba(){
 function bindUserInfo() {
 	var source = $("#inicio").html();
 	var template = Handlebars.compile(source);
+	var fbdata = localStorage.getItem("fbdata");
+
+	if (fbdata) {
+		fbdata = JSON.parse(fbdata);
+		gameState.player.uid = fbdata.id;
+		gameState.player.name = fbdata.first_name + " " + fbdata.last_name;
+	}
+
 	var html = template(gameState);
 
 	$(".container").html(html);
@@ -138,6 +144,7 @@ function loadQuizData(callback) {
 
 	var highScore = localStorage.getItem("highScore");
 	var badges = localStorage.getItem("badges");
+	var currentlevel = parseInt(localStorage.getItem("currentLevel"));
 
 	if (!highScore) {
 		gameState.player.highScore = 0;
@@ -147,6 +154,18 @@ function loadQuizData(callback) {
 
 	if (badges) {
 		gameState.player.badges = JSON.parse(badges);
+	}
+
+	if (currentlevel) {
+		console.log(currentlevel);
+		if (currentlevel >= 0 && currentlevel <= 8) {
+			gameState.game.currentLevel = currentlevel;
+		} else {
+			gameState.game.currentLevel = 0;
+		}
+
+	} else {
+		gameState.game.currentLevel = 0;
 	}
 
 
@@ -176,7 +195,7 @@ function initializeGameRounds() {
 		gameState.rounds.push(temp);
 	}
 
-	initializeLevel(0);
+	initializeLevel(gameState.game.currentLevel);
 }
 
 function goBackToContainer() {
@@ -254,9 +273,17 @@ function displayFinalScreen() {
 	if (gameState.game.currentLevel < 9) {
 		if (gameState.round.wrongAnswers <= 3) {
 			initializeLevel(gameState.game.currentLevel + 1);
+
+			localStorage.setItem("currentLevel", gameState.game.currentLevel);
+
+			$(".txt-proximo-nivel").html("Você passou para o próximo nível. Avance para continuar o desafio.");
 		} else {
 			gameState.player.score -= roundScore;
 			initializeLevel(gameState.game.currentLevel);
+
+			localStorage.setItem("currentLevel", gameState.game.currentLevel);
+
+			$(".txt-proximo-nivel").html("Infelizmente você não passou para o próximo nível. Avance tentar novamente esse desafio.");
 		}
 	} else {
 		gameState.player.score = 0;
@@ -476,7 +503,7 @@ function displayCurrentQuestion() {
 	if (selectedQuestionKey == "dica_imagem") {
 		//gameState.question.question = "<img style='max-width: 100%;' src='https://tcquefilme.vxcom.me/qme/admin/internas/cadastro/" +gameState.question.question + "'/>"
 
-		gameState.question.question = "<img style='max-width: 100%;' src='" + path + "assets/img/" +gameState.question.question + "'/>"
+		gameState.question.question = "<img style='max-width: 100%;' src='" + path + "assets/img/" +gameState.question.question + "'/><br>"
 
 		console.log("path:" + 	gameState.question.question);
 	}
@@ -589,3 +616,67 @@ Handlebars.registerHelper('hasBadge', function(badgeNum, options) {
 		return options.inverse(this);
 	}
 });
+
+
+Handlebars.registerHelper('plusone', function(text) {
+
+
+
+	var result = parseInt(text) + 1;
+
+	return new Handlebars.SafeString(result);
+});
+
+// Facebook stuff
+
+function login() {
+	openFB.login(function (){
+		console.log("callback from login")
+		getInfo();
+	}, {scope: "email,publish_actions"})
+}
+
+function getInfo() {
+	openFB.api({
+		path: '/me',
+		success: function(data) {
+
+			// saving.
+
+			gameState.player.uid = data.id;
+			gameState.player.name = data.first_name + " " + data.last_name;
+
+			data = JSON.stringify(data)
+			console.log(data);
+
+			localStorage.setItem("fbdata", data);
+
+			bindUserInfo();
+		},
+		error: errorHandler});
+}
+
+function share() {
+	openFB.api({
+		method: 'POST',
+		path: '/me/feed',
+		params: {
+			message: 'Testing Facebook APIs'
+		},
+		success: function(data) {
+			alert('the item was posted on Facebook');
+		},
+		error: errorHandler});
+}
+
+function revoke() {
+	openFB.revokePermissions(
+		function() {
+			alert('Permissions revoked');
+		},
+		errorHandler);
+}
+
+function errorHandler(error) {
+	alert(error.message);
+}

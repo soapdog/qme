@@ -8,13 +8,6 @@
         VX Comunicação
     </author>
 
-    <gap:platform name="ios" />
-    <gap:platform name="android" />
-
-    <gap:config-file platform="ios" parent="CFBundleIdentifier" overwrite="true">
-        <string>me.vxcom.qme</string>
-    </gap:config-file>
-
 
     <icon src="www/res/Icones/ios/ipad/icon/x152.png" />
 
@@ -27,10 +20,6 @@
         <splash src="www/res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
         <splash src="www/res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/>
 
-        <gap:splash src="res/screen/android/splash-port-ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
-        <gap:splash src="res/screen/android/splash-port-mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
-        <gap:splash src="res/screen/android/splash-port-hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
-        <gap:splash src="res/screen/android/splash-port-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
     </platform>
 
     <platform name="ios">
@@ -46,6 +35,8 @@
         <splash src="res/screen/ios/Default-736h.png" width="1242" height="2208"/>
         <splash src="res/screen/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
     </platform>
+
+    <preference name="SplashScreenDelay" value="10000" />
 
 
     <content src="index.html" />

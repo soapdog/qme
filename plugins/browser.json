@@ -6,6 +6,10 @@
     "config_munge": {
         "files": {}
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        }
+    },
     "dependent_plugins": {}
 }

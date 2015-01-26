@@ -1,5 +1,9 @@
 var gameState = {
     host: window.location.href.split("/").slice(0,3).join("/") + "/",
+    facebook: {
+        //appId: "487389214612612" // Que Filme é Esse
+        appId: "115571411859218" // Meo.
+    },
     player: {
         name: "Andre Garzia",
         highScore: 82,
@@ -53,6 +57,11 @@ function initialize() {
 
 loadQuizData(function() {
     initialize(); // boot!
+
+    // fb
+
+    openFB.init({appId: gameState.facebook.appId, tokenStore: window.localStorage});
+
 });
 
 console.log("init lodaded");
