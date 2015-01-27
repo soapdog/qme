@@ -62,6 +62,8 @@ function bindMenu() {
 		login();
 	});
 
+
+
 }
 
 // Bind tab panel
@@ -97,6 +99,23 @@ function bindUserInfo() {
 	bindStartGameButton();
 	$('body').removeClass('off-canvas-active');
 	goBackToContainer();
+
+
+	// Como jogar do FB
+	$(".btn-como-jogar").off().on("click", function() {
+		var id = "#como-jogar";
+		var content = $(id).html();
+		var template = Handlebars.compile(content);
+		var html = template(gameState);
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		$('.container').html(html);
+		bindAba();
+		bindLinks();
+		bindStartGameButton();
+	});
 
 }
 
@@ -643,13 +662,18 @@ function getInfo() {
 
 			// saving.
 
-			gameState.player.uid = data.id;
-			gameState.player.name = data.first_name + " " + data.last_name;
+			if (data.id) {
 
-			data = JSON.stringify(data)
-			console.log(data);
+				gameState.player.uid = data.id;
+				gameState.player.name = data.first_name + " " + data.last_name;
 
-			localStorage.setItem("fbdata", data);
+				data = JSON.stringify(data)
+				console.log(data);
+
+				localStorage.setItem("fbdata", data);
+			} else {
+				localStorage.removeItem("fbdata");
+			}
 
 			bindUserInfo();
 		},
