@@ -11,7 +11,7 @@
     <script type="text/x-handlebars-template" id="links-for-telecine-play">
         <div class="telecine-box-header">Assista esses filmes no telecine play</div>
         {{#each links}}
-        <a href="{{link_play}}" target="_blank" class="telecine-box-filme">{{nome_portugues}}</a>
+        <a href="{{link_play}}" onclick="window.open(this.href,'_system'); return false;" class="telecine-box-filme">{{nome_portugues}}</a>
         {{/each}}
     </script>
 

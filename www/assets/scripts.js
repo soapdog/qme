@@ -289,6 +289,10 @@ function displayFinalScreen() {
 
 	$('body').addClass('final-active');
 
+	if (gameState.player.uid) {
+		saveScoreToFB(gameState.player.score);
+	}
+
 	if (gameState.game.currentLevel < 9) {
 		if (gameState.round.wrongAnswers <= 3) {
 			initializeLevel(gameState.game.currentLevel + 1);
@@ -398,6 +402,8 @@ function initializeLevel(level) {
 	if (level == 0) {
 		gameState.game.score = 0;
 	}
+
+	gameState.rounds[level] = getQuestionsForLevel(level);
 }
 
 function calculateScore() {
@@ -703,4 +709,20 @@ function revoke() {
 
 function errorHandler(error) {
 	alert(error.message);
+}
+
+function saveScoreToFB(score) {
+	if (!gameState.player.uid) {
+		console.log("NOT LOGGED!");
+		return false;
+	}
+
+	$.getJSON("http://tcquefilme.vxcom.me/qme-v2/backend/gravarPontos", {
+		uid: gameState.player.uid,
+		pontos: score,
+		success: function(data) {
+			console.log("FB GRAVA PONTO");
+			console.log(JSON.stringify(data));
+		}
+	})
 }
