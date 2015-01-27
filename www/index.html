@@ -167,6 +167,16 @@
 
         <div class="content-scroll" style="top: 50px">
 
+            {{#each game.ranking}}
+            <div class="ranking-usuario">
+                <div class="ranking-pontos">{{recorde}}</div>
+                <div class="ranking-avatar">
+                    <img src="https://graph.facebook.com/v2.2/{{user_id}}/picture" class="ranking-avatar-img">
+                </div><!-- ranking-avatar -->
+                <div class="ranking-nome">{{user_nome}}</div>
+            </div>
+            {{/each}}
+
             <div class="ranking-usuario">
                 <div class="ranking-pontos">900</div>
                 <div class="ranking-avatar">

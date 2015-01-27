@@ -42,8 +42,30 @@ function bindMenu() {
 		bindAba();
 		bindLinks();
 		bindStartGameButton();
+		fixBrokenAvatarPics();
 		$('body').toggleClass('off-canvas-active');
 	});
+
+	// Ranking
+	$(".item-menu.icon-ranking").off().on('click', function (event) {
+		pegaRankingFB(function(){
+			var id = "#ranking";
+			var content = $(id).html();
+			var template = Handlebars.compile(content);
+			var html = template(gameState);
+
+			event.preventDefault();
+			event.stopPropagation();
+
+			$('.container').html(html);
+			bindAba();
+			bindLinks();
+			bindStartGameButton();
+			fixBrokenAvatarPics();
+			$('body').toggleClass('off-canvas-active');
+		});
+	});
+
 
 	// Remove drawer se clicar em qualquer lugar do container
 	$('.container').off().on('click', function(){
@@ -97,6 +119,7 @@ function bindUserInfo() {
 	bindAba();
 	bindLinks();
 	bindStartGameButton();
+	fixBrokenAvatarPics();
 	$('body').removeClass('off-canvas-active');
 	goBackToContainer();
 
@@ -721,8 +744,40 @@ function saveScoreToFB(score) {
 		uid: gameState.player.uid,
 		pontos: score,
 		success: function(data) {
-			console.log("FB GRAVA PONTO");
+			console.log("FB GRAVA PONTO. UID: " + gameState.player.uid);
 			console.log(JSON.stringify(data));
 		}
 	})
+}
+
+function pegaRankingFB(callback) {
+	if (!gameState.player.uid) {
+		console.log("NOT LOGGED!");
+		return false;
+	}
+
+	$.ajax({
+			url:"http://tcquefilme.vxcom.me/qme-v2/backend/getRanking",
+			dataType: 'json',
+			success: function(data) {
+				console.log("RANKING. UID: " + gameState.player.uid);
+				console.log(JSON.stringify(data));
+
+				gameState.game.ranking = data;
+
+				callback();
+			},
+			error: function(error) {
+				console.log("YELP!!!!! ERROR!!!!");
+
+				alert("Não foi possível pegar o ranking pois você não está conectado na internet.");
+			}
+		}
+	)
+}
+
+function fixBrokenAvatarPics() {
+	$('img').error(function(){
+		$(this).hide();
+	});
 }
