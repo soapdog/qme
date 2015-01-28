@@ -426,7 +426,7 @@ function initializeLevel(level) {
 		gameState.game.score = 0;
 	}
 
-	gameState.rounds[level] = getQuestionsForLevel(level);
+	gameState.rounds[level] = getQuestionsForLevel(level+1);
 }
 
 function calculateScore() {
