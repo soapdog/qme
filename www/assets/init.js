@@ -1,8 +1,8 @@
 var gameState = {
     host: window.location.href.split("/").slice(0,3).join("/") + "/",
     facebook: {
-        //appId: "487389214612612" // Que Filme é Esse
-        appId: "115571411859218" // Meo.
+        appId: "487389214612612" // Que Filme é Esse
+        //appId: "115571411859218" // Meo.
     },
     player: {
         name: "Andre Garzia",
