@@ -6,7 +6,9 @@ function bindStartGameButton() {
 		bindFinal()
 		bindRemoveFinal();
 		bindRemoveMask();
+        console.log("incializando level...");
 		initializeLevel(gameState.game.currentLevel);
+        console.log("Mostrando pergunta!");
 		displayCurrentQuestion();
 	});
 }
@@ -633,7 +635,16 @@ function displayCurrentQuestion() {
 	bindRemoveFinal();
 	bindRemoveMask();
 
+    console.log("level: " + gameState.game.currentLevel + " question: " + gameState.game.currentQuestion);
 	console.log(JSON.stringify(gameState.round));
+
+    if (device.platform === "iOS") {
+        console.log("Running in iOS, fix screen.");
+
+        $('body').removeClass('game-mask-active');
+        $('body').removeClass('game-mask-active');
+        $('body').removeClass('game-mask-active');
+    }
 
 }
 

@@ -36,7 +36,11 @@
         <splash src="res/screen/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
     </platform>
 
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
 
 
     <content src="index.html" />

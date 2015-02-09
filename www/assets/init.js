@@ -43,30 +43,39 @@ var gameState = {
     timer: {}
 };
 
-if (~window.location.href.indexOf("android")) {
-    console.log("Platform is Android, switching host");
-    gameState.host = "file:///android_asset/www/";
-} else {
-    gameState.host = "";
-}
+document.addEventListener("deviceready", function() {
 
-function initialize() {
-    bindMenu();
-    initializeGameRounds();
-    bindUserInfo();
-}
+    console.log("Cordova Device Ready Fired!");
 
 
-loadQuizData(function() {
-    console.log("Initializing!!!");
-    initialize(); // boot!
+    if (~window.location.href.indexOf("android")) {
+        console.log("Platform is Android, switching host");
+        gameState.host = "file:///android_asset/www/";
+    } else {
+        gameState.host = "";
+        StatusBar.overlaysWebView(false);
+        StatusBar.styleDefault();
+    }
 
-    // fb
+    function initialize() {
+        bindMenu();
+        initializeGameRounds();
+        bindUserInfo();
+    }
 
-    openFB.init({appId: gameState.facebook.appId, tokenStore: window.localStorage});
 
-});
+    loadQuizData(function() {
+        console.log("Initializing!!!");
+        initialize(); // boot!
 
-console.log("init lodaded");
-console.log("href: " + window.location.href);
-console.log("host: " + gameState.host);
+        // fb
+
+        openFB.init({appId: gameState.facebook.appId, tokenStore: window.localStorage});
+
+    });
+
+    console.log("init lodaded");
+    console.log("href: " + window.location.href);
+    console.log("host: " + gameState.host);
+
+}, false);
