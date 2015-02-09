@@ -46,6 +46,8 @@ var gameState = {
 if (~window.location.href.indexOf("android")) {
     console.log("Platform is Android, switching host");
     gameState.host = "file:///android_asset/www/";
+} else {
+    gameState.host = "";
 }
 
 function initialize() {
@@ -56,6 +58,7 @@ function initialize() {
 
 
 loadQuizData(function() {
+    console.log("Initializing!!!");
     initialize(); // boot!
 
     // fb
