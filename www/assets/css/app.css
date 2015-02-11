@@ -982,5 +982,14 @@
     }
 }
 
+.off-canvas-active-ios-fix .off-canvas {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+
+    -webkit-transition: transform .02s linear;
+    -moz-transition: transform .02s linear;
+    transition: transform .02s linear;
+}
 
 

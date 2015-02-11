@@ -15,7 +15,7 @@ function bindStartGameButton() {
         if (device.platform === "iOS") {
             console.log("Running in iOS, fix screen.");
 
-            $('body').toggleClass('off-canvas-active');
+            $('body').toggleClass('off-canvas-active-ios-fix');
         }
 
         displayCurrentQuestion();
@@ -83,6 +83,8 @@ function bindMenu() {
 	$('.container').off().on('click', function(){
 		if( $('body').hasClass('off-canvas-active')){
 			$('body').toggleClass('off-canvas-active');
+
+            $("body").removeClass("off-canvas-active-ios-fix");
 		}
 	});
 
