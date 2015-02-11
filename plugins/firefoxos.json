@@ -11,6 +11,10 @@
                         {
                             "xml": "<permission description=\"Enables the app to implement a browser in an iframe.\" name=\"browser\" privileged=\"true\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"firefoxos-package\" value=\"Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -19,6 +23,12 @@
     },
     "installed_plugins": {
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "me.vxcomm.qme"
         }
     },

@@ -43,7 +43,8 @@ var gameState = {
     timer: {}
 };
 
-document.addEventListener("deviceready", function() {
+
+function deviceReadyCallback() {
 
     console.log("Cordova Device Ready Fired!");
 
@@ -53,8 +54,11 @@ document.addEventListener("deviceready", function() {
         gameState.host = "file:///android_asset/www/";
     } else {
         gameState.host = "";
-        StatusBar.overlaysWebView(false);
-        StatusBar.styleDefault();
+
+        if (typeof StatusBar !== "undefined") {
+            StatusBar.overlaysWebView(false);
+            StatusBar.styleDefault();
+        }
     }
 
     function initialize() {
@@ -78,4 +82,20 @@ document.addEventListener("deviceready", function() {
     console.log("href: " + window.location.href);
     console.log("host: " + gameState.host);
 
-}, false);
+    if (typeof device !== "undefined") {
+        console.log("cordova: " + device.cordova);
+        console.log("model: " + device.model);
+        console.log("platform: " + device.platform);
+        console.log("version: " + device.version);
+    }
+
+
+}
+
+document.addEventListener("deviceready", deviceReadyCallback, false);
+
+if (typeof device == "undefined" || device.available === false) {
+    console.log("not cordova");
+    deviceReadyCallback();
+}
+

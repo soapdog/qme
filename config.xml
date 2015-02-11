@@ -37,6 +37,8 @@
     </platform>
 
     <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="BackupWebStorage" value="local"/>
+    <preference name="SuppressesIncrementalRendering" value="true"/>
 
     <feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" onload="true" />

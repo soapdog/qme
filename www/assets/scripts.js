@@ -118,12 +118,6 @@ function bindUserInfo() {
 	var html = template(gameState);
 
 	$(".container").html(html);
-	bindAba();
-	bindLinks();
-	bindStartGameButton();
-	fixBrokenAvatarPics();
-	$('body').removeClass('off-canvas-active');
-	goBackToContainer();
 
 
 	// Como jogar do FB
@@ -141,6 +135,15 @@ function bindUserInfo() {
 		bindLinks();
 		bindStartGameButton();
 	});
+
+    bindAba();
+    bindLinks();
+    bindStartGameButton();
+    fixBrokenAvatarPics();
+    $('body').removeClass('off-canvas-active');
+    goBackToContainer();
+
+    console.log("fez tudo!");
 
 }
 
@@ -648,17 +651,43 @@ function displayCurrentQuestion() {
 
 }
 
-function shareOnFB() {
-	var link = "https://www.facebook.com/dialog/share?"
+function shareOnFB(event) {
+	//var link = "https://www.facebook.com/dialog/share?"
+    //
+	//link += "app_id=" + gameState.facebook.appId;
+	//link += "&display=popup&caption=" +  encodeURIComponent("Você consegue descobrir que filme é esse?");
+	//link += "&link=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
+	//link += "&redirect_uri=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
+    //
+	//console.log(link);
+    //
+	//window.open(link,"_system");
 
-	link += "app_id=145634995501895";
-	link += "&display=popup&caption=" +  encodeURIComponent("Venha jogar");
-	link += "&link=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
-	link += "&redirect_uri=" + encodeURIComponent("https://apps.facebook.com/que-filme-e-esse/");
+    event.preventDefault();
+    event.stopPropagation();
 
-	console.log(link);
+    function noop(args) {
+        console.log(args);
+    }
 
-	window.open(link);
+    function success() {
+        alert("Pontos postados no Facebook!");
+    }
+
+    function err() {
+        alert("Não foi possível postar os pontos no Facebook");
+    }
+
+    openFB.api(
+        {
+            method: 'POST',
+            path: '/me/feed',
+            params: {
+                message: 'Acabei de fazer ' + gameState.player.score + " pontos no 'Que Filme é Esse?'"
+            },
+            success: success,
+            error: err
+        });
 }
 
 
