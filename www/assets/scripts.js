@@ -1,6 +1,8 @@
 
 function bindStartGameButton() {
-	$('.abrir-jogo').off().on("click", function () {
+	$('.abrir-jogo').off().on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 		console.log("Começando o jogo...");
 		bindResposta()
 		bindFinal()
@@ -9,8 +11,16 @@ function bindStartGameButton() {
         console.log("incializando level...");
 		initializeLevel(gameState.game.currentLevel);
         console.log("Mostrando pergunta!");
-		displayCurrentQuestion();
-	});
+
+        if (device.platform === "iOS") {
+            console.log("Running in iOS, fix screen.");
+
+            $('body').toggleClass('off-canvas-active');
+        }
+
+        displayCurrentQuestion();
+
+    });
 }
 
 
@@ -641,13 +651,7 @@ function displayCurrentQuestion() {
     console.log("level: " + gameState.game.currentLevel + " question: " + gameState.game.currentQuestion);
 	console.log(JSON.stringify(gameState.round));
 
-    if (device.platform === "iOS") {
-        console.log("Running in iOS, fix screen.");
 
-        $('body').removeClass('game-mask-active');
-        $('body').removeClass('game-mask-active');
-        $('body').removeClass('game-mask-active');
-    }
 
 }
 
