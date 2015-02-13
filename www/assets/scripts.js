@@ -186,10 +186,12 @@ function bindRemoveFinal(){
 		bindUserInfo();
 	});
 
-	$(".final-facebook").off().on("click", function() {
+	$(".final-facebook").off().on("click", function(evt) {
 		console.log("ir pro facebook...");
-		shareOnFB();
-		$('body').removeClass('final-active');
+        evt.preventDefault();
+        evt.stopPropagation();
+		shareOnFB(evt);
+
 	});
 }
 
@@ -669,19 +671,30 @@ function shareOnFB(event) {
     //
 	//window.open(link,"_system");
 
-    event.preventDefault();
-    event.stopPropagation();
+    //event.preventDefault();
+    //event.stopPropagation();
+
+    console.log("Entering share on fb");
+
+    if (typeof gameState.player.uid == "undefined") {
+        console.log("usuário não está logado. Abrindo login");
+        login(shareOnFB);
+        return
+    }
 
     function noop(args) {
         console.log(args);
     }
 
-    function success() {
-        alert("Pontos postados no Facebook!");
+    function success(obj) {
+        console.log(obj);
+        dialog("Pontos postados no Facebook!");
+
     }
 
-    function err() {
-        alert("Não foi possível postar os pontos no Facebook");
+    function err(obj) {
+        console.log(obj);
+        dialog("Não foi possível postar os pontos no Facebook");
     }
 
     openFB.api(
@@ -723,14 +736,15 @@ Handlebars.registerHelper('plusone', function(text) {
 
 // Facebook stuff
 
-function login() {
+function login(callback) {
 	openFB.login(function (){
 		console.log("callback from login")
-		getInfo();
+        getInfo(callback);
+
 	}, {scope: "email,publish_actions"})
 }
 
-function getInfo() {
+function getInfo(callback) {
 	openFB.api({
 		path: '/me',
 		success: function(data) {
@@ -750,7 +764,13 @@ function getInfo() {
 				localStorage.removeItem("fbdata");
 			}
 
-			bindUserInfo();
+            if (typeof callback == "undefined") {
+                console.log("no callback")
+                bindUserInfo();
+            } else {
+                console.log("callback!");
+                callback();
+            }
 		},
 		error: errorHandler});
 }
@@ -816,7 +836,7 @@ function pegaRankingFB(callback) {
 			error: function(error) {
 				console.log("YELP!!!!! ERROR!!!!");
 
-				alert("Não foi possível pegar o ranking pois você não está conectado na internet.");
+                dialog("Não foi possível pegar o ranking pois você não está conectado na internet.");
 			}
 		}
 	)
@@ -826,4 +846,8 @@ function fixBrokenAvatarPics() {
 	$('img').error(function(){
 		$(this).hide();
 	});
+}
+
+function dialog(txt) {
+    navigator.notification.alert(txt, function() {}, "Que Filme É Esse?");
 }

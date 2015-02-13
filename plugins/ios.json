@@ -12,6 +12,12 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -37,6 +43,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -51,6 +61,9 @@
             "PACKAGE_NAME": "me.vxcomm.qme"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "me.vxcomm.qme"
         }
     },

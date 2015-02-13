@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"firefoxos-package\" value=\"Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"firefoxos-package\" value=\"Notification\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -29,6 +33,9 @@
             "PACKAGE_NAME": "me.vxcomm.qme"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "me.vxcomm.qme"
         }
     },

@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -33,6 +37,9 @@
             "PACKAGE_NAME": "me.vxcomm.qme"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "me.vxcomm.qme"
         }
     },

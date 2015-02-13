@@ -26,6 +26,9 @@
         },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "me.vxcomm.qme"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "me.vxcomm.qme"
         }
     },
     "dependent_plugins": {}
